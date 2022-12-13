@@ -1,0 +1,17 @@
+{
+    "name": "matthieuily/testcase",
+    "type": "package",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Matthieuily\\Testcase\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Matthieu Ily",
+            "email": "matthieu.ily@gmail.com"
+        }
+    ],
+    "require": {}
+}
