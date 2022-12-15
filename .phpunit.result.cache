@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Sankokai\\TestCase\\Tests\\Feature\\MakeTestCaseTest::it_launch_usecase_command":4,"Sankokai\\UseCase\\Tests\\Feature\\MakeTestCaseTest::it_launch_usecase_command":3},"times":{"Sankokai\\TestCase\\Tests\\Feature\\MakeTestCaseTest::it_launch_usecase_command":0.086,"Sankokai\\UseCase\\Tests\\Feature\\MakeTestCaseTest::it_launch_usecase_command":0.188}}

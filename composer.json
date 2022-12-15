@@ -1,10 +1,14 @@
 {
-    "name": "matthieuily/testcase",
-    "type": "package",
+    "name": "sankokai/usecase",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Matthieuily\\Testcase\\": "src/"
+            "Sankokai\\Usecase\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sankokai\\Usecase\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -13,5 +17,17 @@
             "email": "matthieu.ily@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "8.1.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.15"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sankokai\\Usecase\\UsecaseServiceProvider"
+            ]
+        }
+    }
 }
