@@ -14,9 +14,10 @@ class MakeTestCaseTest extends TestCase
     /** @test */
     public function it_launch_usecase_command()
     {
-        $this->artisan('usecase:create')
-            ->expectsOutput('Usecase created successfuly.');
-
-        $this->artisan('usecase:create')->assertSuccessful();
+        $this->artisan('make:usecase', ['name' =>'John'])
+            ->expectsOutput('Usecase created successfuly.')
+            ->assertSuccessful();
+           
+        // $this->artisan('make:usecase')->assertSuccessful();
     }
 }

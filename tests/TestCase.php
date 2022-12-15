@@ -10,6 +10,8 @@ class TestCase extends TestbenchTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->app->setBasePath(__DIR__ . '/../');
     }
 
     protected function getPackageProviders($app)
