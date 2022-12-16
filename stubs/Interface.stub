@@ -1,8 +1,8 @@
 <?php
 
-namespace $NAMESPACE;
+namespace {{ namespace }};
 
-interface $CLASS_NAME$Interface
+interface {{ class_name }}{{ interface }}
 {
 
 }

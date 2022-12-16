@@ -1,0 +1,24 @@
+<?php
+
+namespace {{ namespace }};
+
+class {{ UseCase }}
+{
+
+
+    /**
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * @param {{ UseCase }}Request $request
+     * @param {{ UseCase }}PresenterInterface $presenter
+     */
+    public function execute($request, $presenter)
+    {
+        $presenter->present(new {{ UseCase }}Response());
+    }
+}

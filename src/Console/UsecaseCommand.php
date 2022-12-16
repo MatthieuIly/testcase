@@ -113,6 +113,11 @@ class UsecaseCommand extends Command
 
         foreach ($stubVariables as $search => $replace)
         {
+            // (\{{2})(\s*)(\w*\d*)(\s*)(\}{2})
+            $content = preg_replace('/(\{{2})(\s*)(\w*\d*)(\s*)(\}{2})/', $replace, $contents);
+            dump($search);
+            dump($replace);
+            dump($contents);
             $contents = str_replace('$'.$search.'$' , $replace, $contents);
         }
 
