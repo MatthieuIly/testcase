@@ -4,7 +4,7 @@ namespace Sankokai\UseCase\Tests\Feature;
 
 use Sankokai\Usecase\Tests\TestCase;
 
-class MakeTestCaseTest extends TestCase
+class MakeUseCaseTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -14,10 +14,15 @@ class MakeTestCaseTest extends TestCase
     /** @test */
     public function it_launch_usecase_command()
     {
-        $this->artisan('make:usecase', ['name' =>'John'])
+        $useCaseName = 'JohnDoe';
+
+        $this->artisan('make:usecase', ['name' => $useCaseName])
             ->expectsOutput('Usecase created successfuly.')
             ->assertSuccessful();
-           
+
+        $this->assertFileExists(
+            __DIR__ . '/../../domain/' . $useCaseName . '/' . $useCaseName . '.php'
+        );
         // $this->artisan('make:usecase')->assertSuccessful();
     }
 }

@@ -43,12 +43,12 @@ class UsecaseCommand extends Command
 
         $contents = $this->getSourceFile();
 
-        if (!$this->files->exists($path)) {
+        // if (!$this->files->exists($path)) {
             $this->files->put($path, $contents);
             $this->info("File : {$path} created");
-        } else {
-            $this->info("File : {$path} already exits");
-        }
+        // } else {
+        //     $this->info("File : {$path} already exits");
+        // }
     
         $this->line("Usecase created successfuly.");
     }
@@ -70,7 +70,7 @@ class UsecaseCommand extends Command
      */
     public function getStubPath()
     {
-        return __DIR__ . '/../../stubs/Interface.stub';
+        return __DIR__ . '/../../stubs/domain/UseCase/Usecase.stub';
     }
 
     /**
@@ -83,8 +83,8 @@ class UsecaseCommand extends Command
     public function getStubVariables()
     {
         return [
-            'NAMESPACE'         => 'App\\Interfaces',
-            'CLASS_NAME'        => $this->getSingularClassName($this->argument('name')),
+            '{{ namespace }}' => $this->getSingularClassName($this->argument('name')),
+            '{{ useCase }}'   => $this->getSingularClassName($this->argument('name')),
         ];
     }
 
@@ -114,11 +114,11 @@ class UsecaseCommand extends Command
         foreach ($stubVariables as $search => $replace)
         {
             // (\{{2})(\s*)(\w*\d*)(\s*)(\}{2})
-            $content = preg_replace('/(\{{2})(\s*)(\w*\d*)(\s*)(\}{2})/', $replace, $contents);
-            dump($search);
-            dump($replace);
-            dump($contents);
-            $contents = str_replace('$'.$search.'$' , $replace, $contents);
+            $contents = preg_replace('/(\{{2})(\s*)(\w*\d*)(\s*)(\}{2})/', $replace, $contents);
+            // dump($search);
+            // dump($replace);
+            // dump($contents);
+            //$contents = str_replace('$'.$search.'$' , $replace, $contents);
         }
 
         return $contents;
@@ -132,8 +132,9 @@ class UsecaseCommand extends Command
      */
     public function getSourceFilePath()
     {
-        return base_path() . '/domain/UseCase/' . $this->getSingularClassName($this->argument('name')) . '/' .
-            $this->getSingularClassName($this->argument('name')) . 'Interface.php';
+        return base_path() . '/domain/' . 
+            $this->getSingularClassName($this->argument('name')) . '/' .
+            $this->getSingularClassName($this->argument('name')) . '.php';
     }
 
     /**

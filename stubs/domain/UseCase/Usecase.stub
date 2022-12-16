@@ -2,10 +2,8 @@
 
 namespace {{ namespace }};
 
-class {{ UseCase }}
+class {{ useCase }}
 {
-
-
     /**
      */
     public function __construct()
@@ -14,11 +12,11 @@ class {{ UseCase }}
     }
 
     /**
-     * @param {{ UseCase }}Request $request
-     * @param {{ UseCase }}PresenterInterface $presenter
+     * @param {{ useCase }}Request $request
+     * @param {{ useCase }}PresenterInterface $presenter
      */
     public function execute($request, $presenter)
     {
-        $presenter->present(new {{ UseCase }}Response());
+        $presenter->present(new {{ useCase }}Response());
     }
 }
