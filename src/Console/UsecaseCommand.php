@@ -12,7 +12,7 @@ class UsecaseCommand extends Command
      * 
      * @var string
      */
-    protected $signature = 'make:usecase {name}';
+    protected $signature = 'make:usecase {name} {namespace?}';
 
     protected $description = 'Create a UseCase';
 
@@ -21,6 +21,12 @@ class UsecaseCommand extends Command
      * @var Filesystem
      */
     protected $files;
+
+    /**
+     * Stub paths and destinations
+     * @var array
+     */
+    protected $stubs;
 
     /**
      * Create a new command instance.
@@ -35,21 +41,46 @@ class UsecaseCommand extends Command
 
     public function handle()
     {
+        $path = base_path() . '/domain/' .
+            $this->getSingularClassName($this->argument('name')) . '/';
+        
+        $this->stubs = [
+            [
+                'stub' => __DIR__ . '/../../stubs/domain/UseCase/Usecase.stub',
+                'dest' => $path . $this->getSingularClassName($this->argument('name')) . '.php',
+            ],
+            [
+                'stub' => __DIR__ . '/../../stubs/domain/UseCase/UsecaseRequest.stub',
+                'dest' => $path . $this->getSingularClassName($this->argument('name')) . 'Request.php',
+            ],
+            [
+                'stub' => __DIR__ . '/../../stubs/domain/UseCase/UsecaseResponse.stub',
+                'dest' => $path . $this->getSingularClassName($this->argument('name')) . 'Response.php',
+            ],
+            [
+                'stub' => __DIR__ . '/../../stubs/domain/UseCase/UsecasePresenter.stub',
+                'dest' => $path . $this->getSingularClassName($this->argument('name')) . 'Presenter.php',
+            ],
+            [
+                'stub' => __DIR__ . '/../../stubs/domain/UseCase/UsecasePresenterInterface.stub',
+                'dest' => $path . $this->getSingularClassName($this->argument('name')) . 'PresenterInterface.php',
+            ]
 
-        $path = $this->getSourceFilePath();
+        ];
 
-        // dd(dirname($path));
         $this->makeDirectory(dirname($path));
 
-        $contents = $this->getSourceFile();
-
-        // if (!$this->files->exists($path)) {
-            $this->files->put($path, $contents);
+        foreach ($this->stubs as $stub) {
+            // if (!$this->files->exists($path)) {
+            $contents = $this->getSourceFile($stub['stub']);
+            $this->files->put($stub['dest'], $contents);
             $this->info("File : {$path} created");
-        // } else {
-        //     $this->info("File : {$path} already exits");
-        // }
-    
+            // $this->info("File : {$path} created");
+            // } else {
+            //     $this->info("File : {$path} already exits");
+            // }
+        }
+
         $this->line("Usecase created successfuly.");
     }
 
@@ -64,16 +95,6 @@ class UsecaseCommand extends Command
     }
 
     /**
-     * Return the stub file path
-     * @return string
-     *
-     */
-    public function getStubPath()
-    {
-        return __DIR__ . '/../../stubs/domain/UseCase/Usecase.stub';
-    }
-
-    /**
     **
     * Map the stub variables present in stub to its value
     *
@@ -83,8 +104,8 @@ class UsecaseCommand extends Command
     public function getStubVariables()
     {
         return [
-            '{{ namespace }}' => $this->getSingularClassName($this->argument('name')),
-            '{{ useCase }}'   => $this->getSingularClassName($this->argument('name')),
+            '{{namespace}}' => $this->getSingularClassName($this->argument('namespace')),
+            '{{useCase}}'   => $this->getSingularClassName($this->argument('name')),
         ];
     }
 
@@ -94,11 +115,10 @@ class UsecaseCommand extends Command
      * @return bool|mixed|string
      *
      */
-    public function getSourceFile()
+    public function getSourceFile($stubPath)
     {
-        return $this->getStubContents($this->getStubPath(), $this->getStubVariables());
+        return $this->getStubContents($stubPath, $this->getStubVariables());
     }
-
 
     /**
      * Replace the stub variables(key) with the desire value
@@ -110,31 +130,12 @@ class UsecaseCommand extends Command
     public function getStubContents($stub , $stubVariables = [])
     {
         $contents = file_get_contents($stub);
-
         foreach ($stubVariables as $search => $replace)
         {
-            // (\{{2})(\s*)(\w*\d*)(\s*)(\}{2})
-            $contents = preg_replace('/(\{{2})(\s*)(\w*\d*)(\s*)(\}{2})/', $replace, $contents);
-            // dump($search);
-            // dump($replace);
-            // dump($contents);
-            //$contents = str_replace('$'.$search.'$' , $replace, $contents);
+            $contents = str_replace($search, $replace, $contents);
         }
-
         return $contents;
 
-    }
-
-    /**
-     * Get the full path of generate class
-     *
-     * @return string
-     */
-    public function getSourceFilePath()
-    {
-        return base_path() . '/domain/' . 
-            $this->getSingularClassName($this->argument('name')) . '/' .
-            $this->getSingularClassName($this->argument('name')) . '.php';
     }
 
     /**

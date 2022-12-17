@@ -1,0 +1,19 @@
+<?php
+
+namespace {{namespace}};
+
+class {{useCase}}Presenter implements {{useCase}}PresenterInterface
+{
+    /**
+     * @var {{useCase}}Response
+     */
+    public $response;
+
+    /**
+     * @return void
+     */
+    public function present({{useCase}}Response $response)
+    {
+        $this->response = $response;
+    }
+}

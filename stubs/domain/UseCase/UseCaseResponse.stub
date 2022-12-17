@@ -1,0 +1,26 @@
+<?php
+
+namespace {{namespace}};
+
+class {{useCase}}Response
+{
+    protected $messages;
+
+    /**
+     * {{useCase}}Response constructor.
+     *
+     * @param array $messages
+     */
+    public function __construct($messages)
+    {
+        $this->messages = $messages;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+}

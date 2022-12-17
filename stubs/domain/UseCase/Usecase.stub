@@ -1,8 +1,8 @@
 <?php
 
-namespace {{ namespace }};
+namespace {{namespace}};
 
-class {{ useCase }}
+class {{useCase}}
 {
     /**
      */
@@ -12,11 +12,11 @@ class {{ useCase }}
     }
 
     /**
-     * @param {{ useCase }}Request $request
-     * @param {{ useCase }}PresenterInterface $presenter
+     * @param {{useCase}}Request $request
+     * @param {{useCase}}PresenterInterface $presenter
      */
     public function execute($request, $presenter)
     {
-        $presenter->present(new {{ useCase }}Response());
+        $presenter->present(new {{useCase}}Response());
     }
 }
